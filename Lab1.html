@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Labsheet 1</title>
+    <script>
+
+        //Question1
+        var myFunction = function printHelloWorld() {
+            console.log("Hello world");
+        };
+        function myFunction1(myFunction) {
+            myFunction;
+        };
+
+        myFunction1(myFunction());
+
+        //Question2
+        var vehicle = {
+            "Type" : "TOYOTA",
+            "Colour" : "Black",
+            printType : function () {
+                console.log(this.Type);
+            }
+        };
+
+        vehicle.printType();
+
+        //Question3
+        var vehicleName = "car";
+
+        function printVehicleName() {
+            console.log(vehicleName);
+        };
+
+        var Vehicle = {
+            "vehicleName" : "JEEP",
+            getVehicleName : function () {
+                console.log(this.vehicleName);
+            }
+        };
+
+        printVehicleName();
+        Vehicle.getVehicleName();
+
+        //Question4
+        function calculateTax(percentage){
+
+            function taxAmount(amount) {
+                return (amount * (percentage/100));
+            }
+            return taxAmount;
+        }
+
+        var amount = calculateTax(10);
+        console.log(amount(100000));
+
+        //Question5
+        function fetchUsers() {
+            return fetch('https://api.github.com/users')
+                .then(response => response.json());
+        }
+        fetchUsers().then(json => {
+            console.log(json);
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
