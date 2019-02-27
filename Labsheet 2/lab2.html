@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Labsheet 2</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    //this
+    var vehicleName = 'Toyota';
+    function printVehicalNameOuter(){
+        console.log("Vehicle name : " + this.vehicleName);
+    }
+
+    printVehicalNameOuter();
+    console.log(this.vehicleName);
+
+    var Vehicle = {
+        vehicleName : 'Nissan',
+        printVehicleNameInner : printVehicalNameOuter
+    };
+
+    Vehicle.printVehicleNameInner();
+
+    //part 2
+
+    var Vehicle = {
+        vehicleName : 'Nissan',
+        printVehicleNameInner : function () {
+            return function () {
+                console.log(this.vehicleName);
+            }
+        }
+    };
+
+    var execute = Vehicle.printVehicleNameInner();
+    execute();
+
+    //call()
+
+    execute.call(Vehicle);
+
+    //bind()
+
+    var execute = Vehicle.printVehicleNameInner().bind(Vehicle);
+    execute();
+
+    //closure
+
+    function taxCalculator(tax){
+        return function (amount) {
+            return (amount * (tax/100));
+        }
+
+    }
+
+    var tax = taxCalculator(10);
+
+    console.log(tax(10000));
+
+    //classes
+
+    //creating a class
+    function Vehicle(type) {
+        Vehicle.VehicleCount++;
+        this.type = type;
+    }
+
+    //creating static variable
+    Vehicle.VehicleCount = 0;
+
+    //creating a function in Vehicle
+    Vehicle.prototype.drive = function () {
+        console.log('Vehicle is driving');
+    };
+
+    //creating an object
+    var vehicle = new Vehicle('Toyota');
+
+    //creating a car class
+    function Car(type) {
+        Vehicle.call(this, type);
+    }
+
+    //inheritance
+    Car.prototype = Object.create(Vehicle.prototype);
+
+
+</script>
+
+</body>
+
+</html>
