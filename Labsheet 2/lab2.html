@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Labsheet 2</title>
+
 </head>
 <body>
 
 <script type="text/javascript">
 
     //this
+
     var vehicleName = 'Toyota';
     function printVehicalNameOuter(){
         console.log("Vehicle name : " + this.vehicleName);
@@ -26,7 +28,7 @@
 
     //part 2
 
-    var Vehicle = {
+    var Vehicles = {
         vehicleName : 'Nissan',
         printVehicleNameInner : function () {
             return function () {
@@ -35,16 +37,16 @@
         }
     };
 
-    var execute = Vehicle.printVehicleNameInner();
+    var execute = Vehicles.printVehicleNameInner();
     execute();
 
     //call()
 
-    execute.call(Vehicle);
+    execute.call(Vehicles);
 
     //bind()
 
-    var execute = Vehicle.printVehicleNameInner().bind(Vehicle);
+    var execute = Vehicles.printVehicleNameInner().bind(Vehicles);
     execute();
 
     //closure
@@ -60,32 +62,60 @@
 
     console.log(tax(10000));
 
+    //Promises
+
+    function fetchUsers() {
+        fetch('https://api.github.com/users').then(res => res.json()).then((message)=>{
+            console.log(message);
+        });
+    };
+
+    fetchUsers();
+
     //classes
 
     //creating a class
-    function Vehicle(type) {
-        Vehicle.VehicleCount++;
+    function Vehicle1(type) {
+        Vehicle1.VehicleCount++;
         this.type = type;
     }
 
     //creating static variable
-    Vehicle.VehicleCount = 0;
+    Vehicle1.VehicleCount = 0;
 
     //creating a function in Vehicle
-    Vehicle.prototype.drive = function () {
+    Vehicle1.prototype.drive = function () {
         console.log('Vehicle is driving');
     };
 
+    console.log('Count before creating an object from the "Vehicle1" class :' + Vehicle1.VehicleCount);
+
     //creating an object
-    var vehicle = new Vehicle('Toyota');
+    var vehicle1 = new Vehicle1('Toyota');
+
+    console.log('Count after creating an object from the "Vehicle1" class :' + Vehicle1.VehicleCount);
 
     //creating a car class
     function Car(type) {
-        Vehicle.call(this, type);
+        Vehicle1.call(this,type);
     }
 
-    //inheritance
-    Car.prototype = Object.create(Vehicle.prototype);
+    //Inheritance
+
+    Car.prototype = Object.create(Vehicle1.prototype);
+    Car.prototype.constructor = Car;
+
+    Car.prototype.balanceWheels = function () {
+        console.log('Wheels are balanced.');
+
+    }
+
+    //calling the methods in Car
+    let car1 = new Car('NISSAN');
+    car1.drive();
+    car1.balanceWheels();
+    console.log('Type of the car object : ' + car1.type);
+    console.log('Vehicle count of the car object :' + Vehicle1.VehicleCount);
 
 
 </script>
@@ -93,3 +123,4 @@
 </body>
 
 </html>
+
